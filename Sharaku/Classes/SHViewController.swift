@@ -42,14 +42,15 @@ public class SHViewController: UIViewController {
         "Tone",
         "Linear"
     ]
-
+    
     fileprivate var filterIndex = 0
     fileprivate let context = CIContext(options: nil)
-    @IBOutlet var imageView: UIImageView?
-    @IBOutlet var collectionView: UICollectionView?
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var collectionView: UICollectionView!
     @IBOutlet weak var topBarView: UIView!
     fileprivate var image: UIImage?
     fileprivate var smallImage: UIImage?
+    fileprivate var hidden = false
 
     public init(image: UIImage) {
         super.init(nibName: nil, bundle: nil)
@@ -109,7 +110,24 @@ public class SHViewController: UIViewController {
     }
     
     @IBAction func imageViewDidTap() {
-        collectionView?.transform.translatedBy(x: 0, y: (collectionView?.frame.size.height)!)
+        if !hidden {
+            let hideCollectionTransform = collectionView.transform.translatedBy(x: 0, y: collectionView.frame.size.height)
+            let hideTopBarTransform = topBarView.transform.translatedBy(x: 0, y: -topBarView.frame.size.height)
+            
+            UIView.animate(withDuration: TimeInterval(0.3), animations:
+                {
+                    self.collectionView.transform = hideCollectionTransform
+                    self.topBarView.transform = hideTopBarTransform
+                    self.hidden = true
+            })
+        } else {
+            UIView.animate(withDuration: TimeInterval(0.3), animations:
+                {
+                    self.collectionView.transform = .identity
+                      self.topBarView.transform = .identity
+                    self.hidden = false
+            })
+        }
     }
 
     func applyFilter() {
