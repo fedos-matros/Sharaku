@@ -13,7 +13,7 @@ public protocol SHViewControllerDelegate {
     func shViewControllerDidCancel()
 }
 
-open class SHViewController: UIViewController {
+public class SHViewController: UIViewController {
     public var delegate: SHViewControllerDelegate?
     fileprivate let filterNameList = [
         "No Filter",
@@ -47,6 +47,7 @@ open class SHViewController: UIViewController {
     fileprivate let context = CIContext(options: nil)
     @IBOutlet var imageView: UIImageView?
     @IBOutlet var collectionView: UICollectionView?
+    @IBOutlet weak var topBarView: UIView!
     fileprivate var image: UIImage?
     fileprivate var smallImage: UIImage?
 
@@ -59,7 +60,7 @@ open class SHViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override open func loadView() {
+    override public func loadView() {
         if let view = UINib(nibName: "SHViewController", bundle: Bundle(for: self.classForCoder)).instantiate(withOwner: self, options: nil).first as? UIView {
             self.view = view
             if let image = self.image {
@@ -69,10 +70,15 @@ open class SHViewController: UIViewController {
         }
     }
 
-    override open func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "SHCollectionViewCell", bundle: Bundle(for: self.classForCoder))
         collectionView?.register(nib, forCellWithReuseIdentifier: "cell")
+    }
+
+    override public func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func imageViewDidSwipeLeft() {
@@ -86,7 +92,6 @@ open class SHViewController: UIViewController {
             applyFilter()
         }
         updateCellFont()
-        scrollCollectionViewToIndex(itemIndex: filterIndex)
     }
 
     @IBAction func imageViewDidSwipeRight() {
@@ -101,7 +106,10 @@ open class SHViewController: UIViewController {
             imageView?.image = image
         }
         updateCellFont()
-        scrollCollectionViewToIndex(itemIndex: filterIndex)
+    }
+    
+    @IBAction func imageViewDidTap() {
+        collectionView?.transform.translatedBy(x: 0, y: (collectionView?.frame.size.height)!)
     }
 
     func applyFilter() {
@@ -184,7 +192,6 @@ extension  SHViewController: UICollectionViewDataSource, UICollectionViewDelegat
             imageView?.image = image
         }
         updateCellFont()
-        scrollCollectionViewToIndex(itemIndex: indexPath.item)
     }
 
     func updateCellFont() {
@@ -208,10 +215,5 @@ extension  SHViewController: UICollectionViewDataSource, UICollectionViewDelegat
                 }
             }
         }
-    }
-
-    func scrollCollectionViewToIndex(itemIndex: Int) {
-        let indexPath = IndexPath(item: itemIndex, section: 0)
-        self.collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }
