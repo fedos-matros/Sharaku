@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//test
+
 public protocol SHViewControllerDelegate {
     func shViewControllerImageDidFilter(image: UIImage)
     func shViewControllerDidCancel()
