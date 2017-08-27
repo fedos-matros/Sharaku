@@ -5,10 +5,10 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
     Sharaku is an image filtering library like Instagram which is using CIFilter. This library is strongly inspired by Fusuma.
         DESC
-  s.homepage         = 'https://github.com/makomori/Sharaku'
+  s.homepage         = 'https://github.com/fedos-matros/Sharaku'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'makomori' => 'makomori26@gmail.com' }
-  s.source           = { :git => 'https://github.com/makomori/Sharaku.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/fedos-matros/Sharaku.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/makomori26'
   s.ios.deployment_target = '8.3'
   s.source_files = 'Sharaku/Classes/**/*'
