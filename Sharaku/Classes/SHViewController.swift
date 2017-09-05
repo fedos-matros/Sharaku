@@ -26,9 +26,17 @@ public class SHViewController: UIViewController {
         "CIPhotoEffectTonal",
         "CIPhotoEffectTransfer",
         "CILinearToSRGBToneCurve",
-        "CISRGBToneCurveToLinear"
+        "CISRGBToneCurveToLinear",
+        
+        "CIColorInvert",
+        "CISepiaTone",
+        "CIColorMonochrome",
+        "CIColorPosterize",
+        "CICrystallize",
+        "CIPixellate",
+        "CIDiscBlur"
     ]
-
+    
     fileprivate let filterDisplayNameList = [
         "Normal",
         "Chrome",
@@ -40,7 +48,15 @@ public class SHViewController: UIViewController {
         "Tonal",
         "Transfer",
         "Tone",
-        "Linear"
+        "Linear",
+        
+        "Color Invert",
+        "Sepia",
+        "Monochrome",
+        "Posterize",
+        "Crystallize",
+        "Pixellate",
+        "Blur"
     ]
     
     fileprivate var filterIndex = 0
